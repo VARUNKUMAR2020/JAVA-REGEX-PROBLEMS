@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class RegexProblem {
     static final String firstNamePattern = "^[A-Z][a-z]{2,}";
     static final String lastNamePattern = "^[A-Z][a-z]{2,}";
+    static final String emailPattern = "^[a-z0-9]+[.]?[a-z0-9]*@[a-z0-9]+[.][a-z]+([.]?[a-z])*";
 
     // UseCase1 : Validate first name.
     public static void validateFirstName(String firstName) {
@@ -29,6 +30,17 @@ public class RegexProblem {
             System.out.println("Last Name Match Not Found.");
     }
 
+    // UseCase3 : Validate email.
+    public static void validateEmail(String email) {
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        boolean matchFound = matcher.find();
+        if (matchFound)
+            System.out.println("Email Match Found.");
+        else
+            System.out.println("Email Match Not Found.");
+    }
+
     public static void main(String[] args) {
         System.out.println("Regex Problems");
 
@@ -39,5 +51,9 @@ public class RegexProblem {
         // UseCase2 : Validate last name.
         String lastName = "Kumar";
         validateLastName(lastName);
+
+        // UseCase3 : Validate email.
+		String email = "varunvenkat2020@gmail.com";
+		validateEmail(email);
     }
 }
