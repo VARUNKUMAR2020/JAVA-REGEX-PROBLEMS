@@ -7,6 +7,7 @@ public class RegexProblem {
     static final String firstNamePattern = "^[A-Z][a-z]{2,}";
     static final String lastNamePattern = "^[A-Z][a-z]{2,}";
     static final String emailPattern = "^[a-z0-9]+[.]?[a-z0-9]*@[a-z0-9]+[.][a-z]+([.]?[a-z])*";
+    static final String phoneNumberPattern = "^[0-9]{1,2}\\s[0-9]{10}";
 
     // UseCase1 : Validate first name.
     public static void validateFirstName(String firstName) {
@@ -14,9 +15,9 @@ public class RegexProblem {
         Matcher matcher = pattern.matcher(firstName);
         boolean matchFound = matcher.find();
         if (matchFound)
-            System.out.println("First Name Match Found.");
+            System.out.println("First Name--Match Found.");
         else
-            System.out.println("First Name Match Not Found.");
+            System.out.println("First Name--Match Not Found.");
     }
 
     // UseCase2 : Validate last name.
@@ -25,9 +26,9 @@ public class RegexProblem {
         Matcher matcher = pattern.matcher(lastName);
         boolean matchFound = matcher.find();
         if (matchFound)
-            System.out.println("Last Name Match Found.");
+            System.out.println("Last Name--Match Found.");
         else
-            System.out.println("Last Name Match Not Found.");
+            System.out.println("Last Name--Match Not Found.");
     }
 
     // UseCase3 : Validate email.
@@ -36,9 +37,20 @@ public class RegexProblem {
         Matcher matcher = pattern.matcher(email);
         boolean matchFound = matcher.find();
         if (matchFound)
-            System.out.println("Email Match Found.");
+            System.out.println("Email--Match Found.");
         else
-            System.out.println("Email Match Not Found.");
+            System.out.println("Email--Match Not Found.");
+    }
+
+    // UseCase4 : Validate phone number.
+    public static void validatePhoneNumber(String phoneNumber) {
+        Pattern pattern = Pattern.compile(phoneNumberPattern);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        boolean matchFound = matcher.find();
+        if (matchFound)
+            System.out.println("Mobile Number--Match Found.");
+        else
+            System.out.println("Mobile Number--Match Not Found.");
     }
 
     public static void main(String[] args) {
@@ -53,7 +65,11 @@ public class RegexProblem {
         validateLastName(lastName);
 
         // UseCase3 : Validate email.
-		String email = "varunvenkat2020@gmail.com";
-		validateEmail(email);
+        String email = "varunvenkat2020@gmail.com";
+        validateEmail(email);
+
+        // UseCase4 : Validate phone number.
+        String phoneNumber = "91 8870187077";
+        validatePhoneNumber(phoneNumber);
     }
 }
