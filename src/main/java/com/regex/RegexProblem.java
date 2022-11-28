@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class RegexProblem {
     static final String firstNamePattern = "^[A-Z][a-z]{2,}";
     static final String lastNamePattern = "^[A-Z][a-z]{2,}";
-    static final String emailPattern = "^[a-z0-9]+[.]?[a-z0-9]*@[a-z0-9]+[.][a-z]+([.]?[a-z])*";
+    static final String emailPattern = "^[a-z0-9]+([.+_-]?[a-z0-9]+)?@{1}[a-z0-9]+[.]([a-z0-9]+[.])?[a-z]{2,}";
     static final String phoneNumberPattern = "^[0-9]{1,2}\\s[0-9]{10}";
     static final String passwordPattern = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]{1})[A-Za-z0-9@$!%*?&]{8,}";
 
@@ -32,7 +32,7 @@ public class RegexProblem {
             System.out.println("Last Name--Match Not Found.");
     }
 
-    // UseCase3 : Validate email.
+    // UseCase 3 & 9 : Validate email.
     public static void validateEmail(String email) {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
@@ -84,9 +84,15 @@ public class RegexProblem {
         String phoneNumber = "91 8870187077";
         validatePhoneNumber(phoneNumber);
 
-        
-		// UseCase 5 & 6 & 7 & 8 : Validate password- minimum eight characters & 1 upper case & 1 numeric & 1 special character
-		String password = "VarunVenkat@1";
-		validatePassword(password);
-    } 
+        // UseCase 5 & 6 & 7 & 8 : Validate password- minimum eight characters & 1 upper
+        // case & 1 numeric & 1 special character
+        String password = "VarunVenkat@1";
+        validatePassword(password);
+
+        // UseCase9 : Validate email for all valid and invalid samples.
+        email = "varunvenkat2020@gmail.com"; // given valid sample
+        validateEmail(email);
+        email = "varun@venkat@gmail.com"; // given invalid sample
+        validateEmail(email);
+    }
 }
