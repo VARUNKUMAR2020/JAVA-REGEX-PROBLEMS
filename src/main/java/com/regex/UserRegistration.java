@@ -3,7 +3,7 @@ package com.regex;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexProblem {
+public class UserRegistration {
     static final String firstNamePattern = "^[A-Z][a-z]{2,}";
     static final String lastNamePattern = "^[A-Z][a-z]{2,}";
     static final String emailPattern = "^[a-z0-9]+([.+_-]?[a-z0-9]+)?@{1}[a-z0-9]+[.]([a-z0-9]+[.])?[a-z]{2,}";
@@ -11,58 +11,55 @@ public class RegexProblem {
     static final String passwordPattern = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]{1})[A-Za-z0-9@$!%*?&]{8,}";
 
     // UseCase1 : Validate first name.
-    public static void validateFirstName(String firstName) {
+    public static boolean validateFirstName(String firstName) {
         Pattern pattern = Pattern.compile(firstNamePattern);
         Matcher matcher = pattern.matcher(firstName);
         boolean matchFound = matcher.find();
-        if (matchFound)
-            System.out.println("First Name--Match Found.");
-        else
-            System.out.println("First Name--Match Not Found.");
+        return matchFound;
     }
+    
 
     // UseCase2 : Validate last name.
-    public static void validateLastName(String lastName) {
+    public static boolean validateLastName(String lastName) {
         Pattern pattern = Pattern.compile(lastNamePattern);
         Matcher matcher = pattern.matcher(lastName);
         boolean matchFound = matcher.find();
-        if (matchFound)
-            System.out.println("Last Name--Match Found.");
-        else
-            System.out.println("Last Name--Match Not Found.");
+        return matchFound;
     }
 
     // UseCase 3 & 9 : Validate email.
-    public static void validateEmail(String email) {
+    public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
         boolean matchFound = matcher.find();
-        if (matchFound)
-            System.out.println("Email--Match Found.");
-        else
-            System.out.println("Email--Match Not Found.");
+        return matchFound;
     }
 
     // UseCase4 : Validate phone number.
-    public static void validatePhoneNumber(String phoneNumber) {
+    public static boolean validatePhoneNumber(String phoneNumber) {
         Pattern pattern = Pattern.compile(phoneNumberPattern);
         Matcher matcher = pattern.matcher(phoneNumber);
         boolean matchFound = matcher.find();
-        if (matchFound)
-            System.out.println("Mobile Number--Match Found.");
-        else
-            System.out.println("Mobile Number--Match Not Found.");
+        return matchFound;
     }
 
     // UseCase 5 & 6 & 7 & 8 : Validate password.
-    public static void validatePassword(String password) {
+    public static boolean validatePassword(String password) {
         Pattern pattern = Pattern.compile(passwordPattern);
         Matcher matcher = pattern.matcher(password);
         boolean matchFound = matcher.find();
-        if (matchFound)
-            System.out.println("Password--Match Found.");
-        else
-            System.out.println("Password--Match Not Found.");
+        return matchFound;
+    }
+
+    // Test case.
+    public String userRegistrationValidation(String firstName, String lastName, String email, String phoneNumber,
+            String password) {
+        if (validateFirstName(firstName) && validateLastName(lastName) && validateEmail(email)
+                && validatePhoneNumber(phoneNumber) && validatePassword(password)) {
+            return "Happy";
+        } else {
+            return "Sad";
+        }
     }
 
     public static void main(String[] args) {
