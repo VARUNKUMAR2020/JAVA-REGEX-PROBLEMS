@@ -16,45 +16,106 @@ import org.testng.xml.Parameters;
 public class TestUserRegistration {
 
     @Test
-    public void givenCorrectDetailsReturnHappy() {
-        UserRegistration validate = new UserRegistration();
-        String result = validate.userRegistrationValidation("Tekesh", "Singh", "tekesh.singh@gmail.co.in",
-                "91 1234567890", "Tekesh1Singh@");
-        assertEquals("Happy", result);
+    public void givenProperFirstNameShouldReturnTrue() {
+        boolean result = UserRegistration.validateFirstName("Aman");
+        Assert.assertTrue(result);
     }
 
     @Test
-    public void givenIncorrectDetailsReturnSad() {
-        UserRegistration validate = new UserRegistration();
-        String result = validate.userRegistrationValidation("tekesh", "singh", "tekesh-Singh@gmail.co.in1",
-                "919087654321", "Tekesh@");
-        assertEquals("Sad", result);
+    public void givenImproperFirstNameShouldReturnInvalidMessage() {
+        try {
+            new UserRegistration();
+            UserRegistration.validateFirstName("aman");
+        } catch (InvalidUserDetailsException e) {
+            assertEquals(InvalidUserDetailsException.ExceptionType.InvalidFirstNameException, e.exceptionType);
+            System.out.println(e.getMessage());
+        }
     }
 
-    @RunWith(Parameterized.class)
-    public class EmailAddressTest {
-        private String email;
-        private boolean expectedResult;
+    @Test
+    public void givenProperLastNameShouldReturnTure() {
+        boolean result = UserRegistration.validateLastName("Khan");
+        Assert.assertTrue(result);
+    }
 
-        // Each parameter should be placed as an argument here
-        // Every time runner triggers, it will pass the arguments
-        // from parameters we defined in primeNumbers() method
-        public EmailAddressTest(String email, boolean expectedResult) {
-            this.email = email;
-            this.expectedResult = expectedResult;
+    @Test
+    public void givenImproperLastNameShouldReturnInvalidMessage() {
+        try {
+            new UserRegistration();
+            UserRegistration.validateLastName("khan");
+        } catch (InvalidUserDetailsException e) {
+            Assert.assertEquals(InvalidUserDetailsException.ExceptionType.InvalidLastNameException, e.exceptionType);
+            System.out.println(e.getMessage());
         }
+    }
 
-        @Parameterized.Parameters
-        public Collection emails() {
-            return Arrays.asList(new Object[][] { { "abc@yahoo.com", true }, { "abc-100@yahoo.com", true },
-                    { "abc.100@yahoo.com", true }, { "abc111@abc.com", true }, { "abc-100@abc.net", true },
-                    { "abc.100@abc.com.au", true }, { "abc@1.com", true }, { "abc@gmail.com.com", true },
-                    { "abc+100@gmail.com", true },
+    @Test
+    public void givenProperEmailShouldReturnTure() {
+        boolean result = UserRegistration.validateEmail("aman-khan@gmail.co1.in");
+        Assert.assertTrue(result);
+    }
 
-                    { "abc", false }, { "abc@.com.my", false }, { "abc123@gmail.a", false }, { "abc123@.com", false },
-                    { "abc123@.com.com", false }, { ".abc@abc.com", false }, { "abc()*@gmail.com", false },
-                    { "abc@%*.com", false }, { "abc..2002@gmail.com", false }, { "abc.@gmail.com", false },
-                    { "abc@abc@gmail.com", false }, { "abc@gmail.com.1a", false }, { "abc@gmail.com.aa.au", false } });
+    @Test
+    public void givenImproperEmailShouldReturnInvalidMessage() {
+        try {
+            new UserRegistration();
+            UserRegistration.validateEmail("aman-Khan@gmail.co.in1");
+        } catch (InvalidUserDetailsException e) {
+            Assert.assertEquals(InvalidUserDetailsException.ExceptionType.InvalidEmailException, e.exceptionType);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenProperPhoneNumberShouldReturnTure() {
+        boolean result = UserRegistration.validatePhoneNumber("91 1234567890");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenImproperPhoneNumberShouldReturnInvalidMessage() {
+        try {
+            new UserRegistration();
+            UserRegistration.validatePhoneNumber("919087654321");
+        } catch (InvalidUserDetailsException e) {
+            Assert.assertEquals(InvalidUserDetailsException.ExceptionType.InvalidMobileNumberException,
+                    e.exceptionType);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenProperPasswordShouldReturnTure() {
+        boolean result = UserRegistration.validatePassword("khanAman@1");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenImproperPasswordShouldReturnInvalidMessage() {
+        try {
+            new UserRegistration();
+            UserRegistration.validatePassword("Aman@1");
+        } catch (InvalidUserDetailsException e) {
+            Assert.assertEquals(InvalidUserDetailsException.ExceptionType.InvalidPasswordException, e.exceptionType);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenDetails_WhenProper_ShouldReturnHAPPY() {
+        UserRegistration validator = new UserRegistration();
+        String result = validator.userRegistrationValidation("Aman", "Khan", "aman-khan@gmail.co1.in", "91 1234567890",
+                "khanAman@1");
+        Assert.assertEquals("Happy", result);
+    }
+
+    @Test
+    public void givenDetails_WhenImproper_ShouldReturnSAD() {
+        UserRegistration validator = new UserRegistration();
+        try {
+            validator.userRegistrationValidation("aman", "khan", "aman-Khan@gmail.co.in1", "919087654321", "Aman@1");
+        } catch (InvalidUserDetailsException e) {
+            System.out.println("Invalid Details");
         }
     }
 }
